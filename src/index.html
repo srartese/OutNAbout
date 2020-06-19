@@ -16,48 +16,63 @@
             physics: {
                 default: 'arcade',
                 arcade: {
-                    gravity: { y: 200 }
+                    gravity: { y: 0 }
                 }
             },
             scene: {
                 preload: preload,
-                create: create
+                create: create,
+                update: update
             }
         };
 
         var game = new Phaser.Game(config);
 
+
         function preload ()
         {
             // this.load.image('sky', 'assets/skies/space3.png');
-            this.load.image('sprite', 'assets/sprite.png');
+            this.load.image('alien', 'assets/sprite.png');
+            cursors = this.input.keyboard.createCursorKeys();
+
         }
 
         function create ()
         {
             // this.add.image(400, 300, 'sky');
-            player = this.physics.add.sprite(100, 500, 'sprite');
+            player = this.physics.add.sprite(100, 500, 'alien').setImmovable(true)
+            cursors = this.input.keyboard.createCursorKeys();
 
-            player.setBounce(0.2);
             player.setCollideWorldBounds(true);            
         }
 
         function update () {
-            if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT))
+            if (cursors.left.isDown)
             {
-                player.x -= speed;
-                player.angle = -15;
+                player.setVelocityX(-160);
             }
-            else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT))
+            else if (cursors.right.isDown)
             {
-                player.x += speed;
-                player.angle = 15;
+                player.setVelocityX(160);
             }
             else
             {
-                player.rotation = 0;
+                player.setVelocityX(0);
+            }
+
+            if (cursors.up.isDown )
+            {
+                player.setVelocityY(-160);
+            }  else if (cursors.down.isDown)
+            {
+                player.setVelocityY(160);
+            }
+            else
+            {
+                player.setVelocityY(0);
             }
         }
+        
     </script>
     </div>
 
