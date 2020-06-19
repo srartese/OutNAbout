@@ -1,4 +1,6 @@
-import "./global.css";
+require("./global.css");
+require("./assets/sprite.png");
+
 const path = require("path");
 
 module.exports = {
